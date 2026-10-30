@@ -17,7 +17,6 @@ public class Setor {
     private String nome;
 
     public Setor() {
-
     }
 
     public Setor(String nome) {

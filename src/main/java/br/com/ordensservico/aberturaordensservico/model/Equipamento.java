@@ -4,27 +4,37 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "equipamentos")
+@Table(name = "equipamento")
 public class Equipamento {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+
     private String nome;
-    private int numeroPatrimonio;
+
+    private String numeroPatrimonio;
+
+    @ManyToOne
+    @JoinColumn(name = "setor_id", nullable = false)
+    private Setor setor;
+
+
 
     public Equipamento() {
 
     }
 
-    public Equipamento(String nome, int numeroPatrimonio) {
+    public Equipamento(String nome, String numeroPatrimonio, Setor setor) {
         this.nome = nome;
         this.numeroPatrimonio = numeroPatrimonio;
+        this.setor = setor;
     }
 
     
@@ -41,11 +51,18 @@ public class Equipamento {
         this.nome = nome;
     }
 
-    public int numeroPatrimonio() {
+    public String getNumeroPatrimonio() {
         return numeroPatrimonio;
     }
 
-    public void setNumeroPatrimonio(){
+    public void setNumeroPatrimonio(String numeroPatrimonio){
         this.numeroPatrimonio = numeroPatrimonio;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+    public void setSetor(Setor setor){
+        this.setor = setor;
     }
 }
