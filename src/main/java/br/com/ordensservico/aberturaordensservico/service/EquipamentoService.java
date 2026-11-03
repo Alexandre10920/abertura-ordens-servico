@@ -12,9 +12,10 @@ import br.com.ordensservico.aberturaordensservico.repository.EquipamentoReposito
 public class EquipamentoService {
     
     private final EquipamentoRepository equipamentoRepository;
-
-    public EquipamentoService(EquipamentoRepository equipamentoRepository) {
+    
+    public EquipamentoService(EquipamentoRepository equipamentoRepository, SetorService setorService) {
         this.equipamentoRepository = equipamentoRepository;
+    
     }
 
     public Equipamento cadastrar(Equipamento equipamento) {
@@ -40,6 +41,8 @@ public class EquipamentoService {
 
         Equipamento equipamento = equipamentoEncontrado.get();
 
+        equipamento.setNumeroPatrimonio(novosDados.getNumeroPatrimonio());
+        equipamento.setSetor(novosDados.getSetor());
         equipamento.setNome(novosDados.getNome());
 
         return Optional.of(equipamentoRepository.save(equipamento));
