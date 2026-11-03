@@ -16,7 +16,7 @@ public class Setor {
 
     private int id;
 
-    @NotBlank(message = "O nome obrigatório")
+    @NotBlank(message = "O nome do setor é obrigatório")
     private String nome;
 
     public Setor() {

@@ -61,8 +61,8 @@ public class EquipamentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Equipamento> atualizar(
-        @Valid @PathVariable Integer id,
-        @RequestBody Equipamento novosDados) {
+        @PathVariable Integer id,
+        @Valid @RequestBody Equipamento novosDados) {
 
         Optional<Equipamento> equipamentoAtualizado = equipamentoService.atualizar(id, novosDados);
 
