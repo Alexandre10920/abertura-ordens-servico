@@ -40,5 +40,6 @@ public class EquipamentoRequest {
     public void setSetorId(Integer setorId) {
         this.setorId = setorId;
     }
+
 }
 

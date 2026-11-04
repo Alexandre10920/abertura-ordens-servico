@@ -16,6 +16,8 @@ import java.util.Optional;
 import br.com.ordensservico.aberturaordensservico.service.EquipamentoService;
 import br.com.ordensservico.aberturaordensservico.model.Equipamento;
 import jakarta.validation.Valid;
+import br.com.ordensservico.aberturaordensservico.dto.EquipamentoRequest;
+
 
 @RestController
 @RequestMapping("/equipamentos")
@@ -29,14 +31,25 @@ public class EquipamentoController {
 
     @PostMapping
     public ResponseEntity<Equipamento> cadastrar(
-         @Valid @RequestBody Equipamento equipamento) {
+         @Valid @RequestBody EquipamentoRequest dados) {
 
-        Equipamento equipamentoCadastrado = equipamentoService.cadastrar(equipamento);
+            Integer setorId = dados.getSetorId();
+
+            if (setorId == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+        Optional<Equipamento> equipamento = equipamentoService.cadastrar(dados);
+
+        if (equipamento.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(equipamentoCadastrado);
+        .status(HttpStatus.CREATED)
+        .body(equipamento.get());
     }
+    
 
     @GetMapping
     public ResponseEntity<List<Equipamento>> listar() {
@@ -62,9 +75,9 @@ public class EquipamentoController {
     @PutMapping("/{id}")
     public ResponseEntity<Equipamento> atualizar(
         @PathVariable Integer id,
-        @Valid @RequestBody Equipamento novosDados) {
+        @Valid @RequestBody EquipamentoRequest dados) {
 
-        Optional<Equipamento> equipamentoAtualizado = equipamentoService.atualizar(id, novosDados);
+        Optional<Equipamento> equipamentoAtualizado = equipamentoService.atualizar(id, dados);
 
         if (equipamentoAtualizado.isPresent()) {
             return ResponseEntity.ok(equipamentoAtualizado.get());
@@ -86,3 +99,4 @@ public class EquipamentoController {
         return ResponseEntity.notFound().build();
     }
 }
+
