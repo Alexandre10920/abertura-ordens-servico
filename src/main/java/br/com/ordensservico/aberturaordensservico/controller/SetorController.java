@@ -62,7 +62,7 @@ public class SetorController {
     @PutMapping("/{id}")
     public ResponseEntity<Setor> atualizar(
         @PathVariable Integer id,
-        @RequestBody Setor novosDados) {
+        @Valid @RequestBody Setor novosDados) {
 
         Optional<Setor> setorAtualizado = setorService.atualizar(id, novosDados);
 
