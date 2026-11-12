@@ -55,4 +55,11 @@ public class OrdemServicoService {
     public Optional<OrdemServico> buscarPorId(Integer id) {
         return ordemServicoRepository.findById(id);
     }
+
+    public Optional<OrdemServico> encerrar(OrdemServico ordemServico, String solucao) {
+        ordemServico.setDataFechamento(LocalDateTime.now());
+        ordemServico.setSolucao(solucao);
+        
+        return Optional.of(ordemServicoRepository.save(ordemServico));
+    }
 }
